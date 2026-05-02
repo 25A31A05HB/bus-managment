@@ -2,14 +2,14 @@
 ##introduction
 bus management is a c++ project to implement basic operations of the bus management system.
 
-##problem statement
+## problem statement
 college management requries a praogram that would help in managing multipile buses without any in convinence.
 
-##objective
+## objective
 to create a menu driven program for bus management.
 To demonstrate the use of linked list,switch case and loops in C++.
 To provide a simple real-life application of programming.
-##algorithm
+## algorithm
 1.Start
 2.Define Structure
 •Create a structure Bus with fields:
