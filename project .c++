@@ -1,19 +1,22 @@
 #include <iostream>
+#include <string> // Added for string support
 using namespace std;
 
 struct Bus {
     int regNo;
+    int busno;
     string name;
     string location;
     string route;
     Bus* next;
 };
 
+// Global head pointer
 Bus* head = NULL;
 
 // Insert at end
-void insertBus(int reg, string name, string loc, string route) {
-    Bus* newBus = new Bus{reg, name, loc, route, NULL};
+void insertBus(int reg, int busno, string name, string loc, string route) {
+    Bus* newBus = new Bus{reg, busno, name, loc, route, NULL};
 
     if (head == NULL) {
         head = newBus;
@@ -27,92 +30,105 @@ void insertBus(int reg, string name, string loc, string route) {
     temp->next = newBus;
 }
 
-// Auto add 5 buses
 void loadBuses() {
-    insertBus(3,  "ClgBus1", "Campus", "Route-A");
-    insertBus(8,  "ClgBus2", "City", "Route-B");
-    insertBus(12, "ClgBus3", "Town", "Route-C");
-    insertBus(78, "ClgBus4", "Village", "Route-D");
-    insertBus(35, "ClgBus5", "Highway", "Route-E");
+    insertBus(0, 1, "None", "Kakinada", "Route-A");
+    insertBus(0, 2, "None", "Kakinada", "Route-B");
+    insertBus(0, 3, "None", "Pitapuram", "Route-C");
+    insertBus(0, 4, "None", "Samarlakota", "Route-D");
+    insertBus(0, 5, "None", "Rjy", "Route-E");
 }
 
-// Add manually
-void addBus() {
-    int reg;
-    string name, loc, route;
+void addmember() {
+    int reg, busno;
+    string name;
 
-    cout << "Enter Reg No: ";
-    cin >> reg;
-    cout << "Enter Bus Name: ";
-    cin >> name;
-    cout << "Enter Location: ";
-    cin >> loc;
-    cout << "Enter Route: ";
-    cin >> route;
+    cout << "Enter Reg No: "; cin >> reg;
+    cout << "Enter your name: "; cin >> name;
+    cout << "Enter Bus no: "; cin >> busno;
 
-    insertBus(reg, name, loc, route);
-    cout << "Bus added successfully!\n";
+    // FIX: Always start from head inside the function
+    Bus* temp = head; 
+    bool found = false;
+
+    while (temp != NULL) {
+        if (temp->busno == busno) {
+            temp->regNo = reg;
+            temp->name = name;
+            found = true;
+            break; 
+        }
+        temp = temp->next;
+    }
+
+    if (found) cout << "Member added to Bus successfully!\n";
+    else cout << "\nInvalid bus number!\n";
 }
 
-// Display buses
 void display() {
     Bus* temp = head;
+    int ch; // FIX: Declare 'ch'
 
     if (temp == NULL) {
         cout << "No buses available\n";
         return;
     }
 
-    cout << "\n--- Bus List ---\n";
+    cout << "\n--- Available Buses ---";
     while (temp != NULL) {
-        cout << "\nReg No: " << temp->regNo;
-        cout << "\nName: " << temp->name;
-        cout << "\nLocation: " << temp->location;
-        cout << "\nRoute: " << temp->route << endl;
-
+        cout << "\nBus No: " << temp->busno << " | Location: " << temp->location << " | Route: " << temp->route;
         temp = temp->next;
     }
-}
 
-// Search
-void searchBus() {
+    cout << "\n\nEnter bus number to view all stops: ";
+    cin >> ch;
+    switch (ch) {
+        case 1: cout << "Stops: Gathicenter, Jagganaikpur, Balajicheruvu\n"; break;
+        case 2: cout << "Stops: Sarpavaram, Srinagar, Main Road\n"; break;
+        case 3: cout << "Stops: Simhadripuram, Municipal High School, Pitapuram Temple\n"; break;
+        case 4: cout << "Stops: Jaggampeta, Ganapathinagar, Peddapuram\n"; break;
+        case 5: cout << "Stops: RTC Colony, Lalachruvu, Divan Cheruvu\n"; break;
+        default: cout << "Invalid bus number selection.\n";
+    }
+} 
+
+void viewdetails() {
     int reg;
     cout << "Enter Reg No to search: ";
     cin >> reg;
 
     Bus* temp = head;
-
     while (temp != NULL) {
-        if (temp->regNo == reg) {
-            cout << "\nBus Found!\n";
-            cout << temp->name << " | " << temp->location 
-                 << " | " << temp->route << endl;
+        if (temp->regNo == reg && reg != 0) { // Check reg != 0 so we don't find empty buses
+            cout << "\nMember Found!\n";
+            cout << "Name: " << temp->name << " | Bus No: " << temp->busno << " | Route: " << temp->route << endl;
             return;
         }
         temp = temp->next;
     }
-    cout << "Bus not found!\n";
+    cout << "No member found with that Registration Number.\n";
 }
 
-// Main
 int main() {
-    loadBuses(); // auto insert
-
+    loadBuses();
     int choice;
 
     do {
         cout << "\n--- College Bus Management ---\n";
-        cout << "1. View Buses\n2. Add Bus\n3. Search Bus\n4. Exit\n";
+        cout << "1. View Buses & Stops\n2. Register Member to Bus\n3. View Member Details\n4. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
 
         switch (choice) {
             case 1: display(); break;
-            case 2: addBus(); break;
-            case 3: searchBus(); break;
+            case 2: addmember(); break;
+            case 3: viewdetails(); break;
+            case 4: cout << "Exiting...\n"; break;
+            default: cout << "Invalid choice!\n";
         }
-
     } while (choice != 4);
 
     return 0;
 }
+
+
+  
