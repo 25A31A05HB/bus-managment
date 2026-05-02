@@ -1,15 +1,15 @@
 ## Bus management system
-introduction
+##introduction
 bus management is a c++ project to implement basic operations of the bus management system.
 
-problem statement
+##problem statement
 college management requries a praogram that would help in managing multipile buses without any in convinence.
 
-objective
+##objective
 to create a menu driven program for bus management.
 To demonstrate the use of linked list,switch case and loops in C++.
 To provide a simple real-life application of programming.
-algorithm
+##algorithm
 1.Start
 2.Define Structure
 •Create a structure Bus with fields:
@@ -19,4 +19,4 @@ Set head = NULL
 
 Store student details in that node Print success message •Else print "Invalid bus number" 8.View Member Details •Input registration number •Traverse list •If found: Display name, bus number, route •Else print "No member found" 9.Main Menu • Repeat until the user exits: Display options: a.View Buses b.Add Member C.View Member Details d.Exit Read user choice Call corresponding function 10.Stop
 
-flowchart
+##flowchart
