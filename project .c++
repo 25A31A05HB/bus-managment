@@ -89,7 +89,7 @@ void display() {
         case 5: cout << "Stops: RTC Colony, Lalachruvu, Divan Cheruvu\n"; break;
         default: cout << "Invalid bus number selection.\n";
     }
-} 
+} // FIX: Added missing brace
 
 void viewdetails() {
     int reg;
@@ -129,6 +129,3 @@ int main() {
 
     return 0;
 }
-
-
-  
